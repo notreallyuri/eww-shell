@@ -1,0 +1,19 @@
+@use "./variables.scss";
+
+.workspaces {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0 4px;
+  border-radius: 25px;
+  min-height: 30px;
+}
+
+.indicator-dot {
+  background-color: variables.$primary;
+  opacity: 1;
+  border-radius: 100%;
+  min-height: 4px;
+}
+
+.indicator-spacer {
+  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}

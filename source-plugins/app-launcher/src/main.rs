@@ -1,9 +1,7 @@
 use ini::Ini;
-use linicon::lookup_icon;
 use serde::Serialize;
 use std::env;
 use std::path::{Path, PathBuf};
-use walkdir::WalkDir;
 
 #[derive(Serialize, Clone)]
 struct App {
@@ -30,7 +28,10 @@ fn main() {
             continue;
         }
 
-        for entry in WalkDir::new(dir).into_iter().filter_map(|e| e.ok()) {
+        for entry in walkdir::WalkDir::new(dir)
+            .into_iter()
+            .filter_map(|e| e.ok())
+        {
             let path = entry.path();
 
             if path.extension().and_then(|s| s.to_str()) == Some("desktop")
@@ -99,18 +100,7 @@ fn parse_desktop_file(path: &Path) -> Option<App> {
     let name = section.get("Name")?.to_string();
     let raw_icon = section.get("Icon").unwrap_or("");
 
-    let icon = if raw_icon.is_empty() {
-        "dialog-question".to_string()
-    } else if raw_icon.starts_with('/') {
-        raw_icon.to_string()
-    } else {
-        lookup_icon(raw_icon)
-            .next() // Get first match: Option<Result<...>>
-            .and_then(|r| r.ok()) // Convert Result to Option (discard error)
-            .map(|i| i.path.to_string_lossy().to_string()) // Get the path
-            .unwrap_or_else(|| raw_icon.to_string())
-    };
-
+    let icon = resolve_icon_path(raw_icon);
     let raw_exec = section.get("Exec")?;
 
     let exec = raw_exec
@@ -129,4 +119,110 @@ fn parse_desktop_file(path: &Path) -> Option<App> {
         exec,
         terminal,
     })
+}
+
+fn resolve_icon_path(raw_icon: &str) -> String {
+    if raw_icon.is_empty() {
+        return get_fallback_icon();
+    }
+
+    if raw_icon.starts_with('/') {
+        if std::path::Path::new(raw_icon).exists() {
+            return raw_icon.to_string();
+        }
+        let stem = std::path::Path::new(raw_icon)
+            .file_stem()
+            .and_then(|s| s.to_str())
+            .unwrap_or(raw_icon);
+        return resolve_icon_path(stem);
+    }
+
+    let mut best_match: Option<String> = None;
+    let mut best_score = 0;
+
+    for icon in linicon::lookup_icon(raw_icon)
+        .filter_map(|r| r.ok())
+        .take(15)
+    {
+        let path = icon.path.to_string_lossy().to_string();
+        let score = score_path(&path);
+
+        if score > best_score {
+            best_score = score;
+            best_match = Some(path);
+        }
+
+        if best_score >= 5 {
+            break;
+        }
+    }
+
+    if let Some(path) = best_match {
+        return path;
+    }
+
+    let home = std::env::var("HOME").unwrap_or_else(|_| "/home/yuri".to_string());
+
+    let high_res_candidates = [
+        format!("/usr/share/icons/hicolor/scalable/apps/{}.svg", raw_icon),
+        format!(
+            "{}/.local/share/icons/hicolor/scalable/apps/{}.svg",
+            home, raw_icon
+        ),
+        format!("/usr/share/icons/hicolor/512x512/apps/{}.png", raw_icon),
+        format!(
+            "{}/.local/share/icons/hicolor/512x512/apps/{}.png",
+            home, raw_icon
+        ),
+        format!("/usr/share/icons/hicolor/256x256/apps/{}.png", raw_icon),
+        format!(
+            "{}/.local/share/icons/hicolor/256x256/apps/{}.png",
+            home, raw_icon
+        ),
+        format!("/usr/share/icons/hicolor/128x128/apps/{}.png", raw_icon),
+        format!("/usr/share/icons/hicolor/48x48/apps/{}.png", raw_icon),
+        format!("/usr/share/pixmaps/{}.svg", raw_icon),
+        format!("/usr/share/pixmaps/{}.png", raw_icon),
+    ];
+
+    for path in high_res_candidates {
+        if std::path::Path::new(&path).exists() {
+            return path;
+        }
+    }
+
+    get_fallback_icon()
+}
+
+fn get_fallback_icon() -> String {
+    let candidates = [
+        "/usr/share/icons/Adwaita/symbolic/action/action-unavailable-symbolic.svg",
+        "/usr/share/icons/hicolor/48x48/apps/application-default-icon.png",
+        "/usr/share/pixmaps/python.png",
+    ];
+    for path in candidates {
+        if std::path::Path::new(path).exists() {
+            return path.to_string();
+        }
+    }
+    "".to_string()
+}
+
+fn score_path(path: &str) -> i32 {
+    if path.ends_with(".svg") || path.contains("/scalable/") {
+        return 5;
+    }
+    if path.contains("512x512") {
+        return 4;
+    }
+    if path.contains("256x256") {
+        return 3;
+    }
+    if path.contains("128x128") {
+        return 2;
+    }
+    if path.contains("64x64") {
+        return 1;
+    }
+    0
 }

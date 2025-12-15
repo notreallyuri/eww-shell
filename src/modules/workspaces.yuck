@@ -1,0 +1,36 @@
+(defwidget workspaces [monitor]
+  (box :class "workspaces"
+    (overlay
+      (box :orientation "h" :space-evenly false :spacing 10
+          (for ws in {workspaces_json[monitor].items}
+          (box :width 20)
+        )
+      )
+      (box :class "indicator-container"
+           :orientation "h"
+           :space-evenly false
+           :halign "start"
+        (box :class "indicator-spacer"
+             :width {workspaces_json[monitor].active_index * 30})
+        (box 
+          :class "indicator-dot"
+          :valign "center"
+          :width 20
+          :height 20
+        )
+      )
+      (box :orientation "h" :space-evenly false :spacing 10
+        (for ws in {workspaces_json[monitor].items}
+          (eventbox
+            :onclick "hyprctl dispatch workspace ${ws.id}"
+            :class "ws-btn"
+            :width 20
+            :height 20
+            :cursor "pointer"
+            (label :text {ws.occupied ? "󰮯" : ""})
+          )
+        )
+      )
+    )
+  )
+)

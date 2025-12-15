@@ -5,8 +5,13 @@
 
 ;; Launcher data
 (defvar applist true)
-(defpoll appdata :interval "60s" "./src/plugins/app-launcher")
+(defpoll appdata :interval "60s" 
+                 :initial '{"apps": [], "favorites": []}' 
+                 "./src/plugins/app-launcher")
 (defvar search_text "")
+
+;; Workspace data
+(deflisten workspaces_json :initial '{}' "./src/plugins/workspaces-2")
 
 ;; Window States
 (defvar calrev false)

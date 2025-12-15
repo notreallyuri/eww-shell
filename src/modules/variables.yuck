@@ -11,7 +11,7 @@
 (defvar search_text "")
 
 ;; Workspace data
-(deflisten workspaces_json :initial '{}' "./src/plugins/workspaces-2")
+(deflisten workspaces_json :initial '{}' "./src/plugins/workspaces-mgr")
 
 ;; Window States
 (defvar calrev false)

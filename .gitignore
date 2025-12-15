@@ -1,6 +1,8 @@
 target/
 **/*.rs.bk
 
+plugins/
+
 eww.log
 eww.lock
 

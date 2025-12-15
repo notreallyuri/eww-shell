@@ -1,3 +1,7 @@
+(defwidget time_trigger [time]
+  (eventbox :cursor "pointer" :onclick "./src/plugins/wd-mgr toggle calendar calrev &" :width 120 :height 30 :class "time-trigger" 
+    (label :text "${time}" )))
+
 (defwidget calendar_event []
     (eventbox :onhoverlost "./src/plugins/wd-mgr toggle calendar calrev &"
          (calendar_widget :time get_time
@@ -35,7 +39,7 @@
     (expander :expanded true
               (revealer :transition "crossfade"
                         :reveal calrev
-                        :duration "350ms"
+                        :duration "150ms"
                         (calendar_event)
               )
     )

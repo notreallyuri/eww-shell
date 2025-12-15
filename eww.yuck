@@ -1,7 +1,6 @@
 (include "./src/modules/variables.yuck")
 (include "./src/modules/calendar.yuck")
 (include "./src/modules/launcher.yuck")
-(include "./src/modules/time.yuck")
 
 (defwidget bar [] 
   (box :class "bar" :orientation "h"

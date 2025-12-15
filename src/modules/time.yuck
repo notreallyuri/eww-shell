@@ -1,3 +1,0 @@
-(defwidget time_trigger [time]
-  (eventbox :cursor "pointer" :onclick "./src/plugins/wd-mgr toggle calendar calrev &" :width 120 :height 25 :class "time-trigger" 
-    (label :text "${time}" )))

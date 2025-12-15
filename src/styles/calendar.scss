@@ -1,6 +1,7 @@
 @use "./variables.scss";
 
 .calendar-container {
+  box-shadow: 0 2px 3px 2px #06060b;
   margin: 5.5px;
   margin-bottom: 10px;
   border-radius: 20px;
@@ -21,6 +22,7 @@
 }
 
 .time-box {
+  box-shadow: 0 2px 3px 2px rgba(6, 6, 11, 0.9);
   border-radius: 15px;
   background-color: variables.$item-bg;
 }
@@ -40,6 +42,7 @@
 }
 
 .calendar-box {
+  box-shadow: 0 2px 3px 2px rgba(6, 6, 11, 0.9);
   border-radius: 15px;
   padding-top: 10px;
   padding-left: 10px;

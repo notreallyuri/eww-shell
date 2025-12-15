@@ -1,10 +1,10 @@
 (defwidget launcher_trigger [] 
   (eventbox :cursor "pointer" 
             :class "launcher-trigger" 
-            :width 112
-            :height 25
+            :width 30
+            :height 30
             :onclick "./src/plugins/wd-mgr toggle launcher launchrev &"
-    (label :text "Launcher")))
+    (label :text "󰀻")))
 
 (defwidget launcher_widget [] 
   (box :class "app-menu-container" 
@@ -67,7 +67,7 @@
 
 (defwidget launcher_list_item [name icon exec terminal] 
   (eventbox :cursor "pointer" :onclick "hyprctl dispatch exec '${terminal ? "kitty -e " : ""}${exec}'" :class "app-item"
-    (box :orientation "h" :space-evenly false :spacing 10
+    (box :class "app-item" :orientation "h" :space-evenly false :spacing 10
       (image :path icon :width 32 :height 32 :image-width 32 :image-height 32)
       (box :orientation "v" :valign "center"
         (label :class "app-name"
@@ -81,7 +81,7 @@
 (defwidget launcher_window []
   (revealer :transition "slideup" 
             :reveal launchrev 
-            :duration "350ms"
+            :duration "150ms"
     (box :class "launcher-window-box"
       (launcher_widget)
     )

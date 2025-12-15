@@ -1,0 +1,12 @@
+;; Time/Date data
+(defpoll get_date :interval "1s" "date +'%d/%m/%Y, %A'")
+(defpoll get_time :interval "1s" "date +%H:%M:%S")
+(defpoll get_uptime :interval "1s" "uptime -p")
+
+;; Launcher data
+(defvar applist true)
+(defpoll appdata :interval "60s" "./src/plugins/app-launcher")
+
+;; Window States
+(defvar calrev false)
+(defvar launchrev false)

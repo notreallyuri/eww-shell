@@ -1,0 +1,37 @@
+@use "./variables";
+
+.launcher-trigger {
+  background-color: variables.$item-bg;
+  padding: 12px;
+  border-radius: 24px;
+  color: variables.$primary;
+  transition: color 0.3s;
+  transition: background-color 0.3s;
+
+  &:hover {
+    color: variables.$white;
+    background-color: variables.$primary;
+  }
+}
+
+.app-menu-container {
+  background-color: variables.$bg;
+  padding: 8px 24px;
+}
+
+.launcher-header {
+}
+
+.tab-btn {
+  padding: 5px;
+}
+
+.active {
+  color: variables.$white;
+  background-color: variables.$primary;
+}
+
+.inactive {
+  background-color: variables.$item-bg;
+  color: variables.$white;
+}

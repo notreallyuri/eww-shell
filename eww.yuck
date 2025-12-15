@@ -1,0 +1,17 @@
+(include "./src/modules/variables.yuck")
+(include "./src/modules/calendar.yuck")
+(include "./src/modules/launcher.yuck")
+(include "./src/modules/time.yuck")
+
+(defwidget bar [] 
+  (box :class "bar" :orientation "h"
+    (box :halign "start" :valign "center" :spacing 10 :hexpand true :space-evenly false (launcher_trigger))
+    (box :halign "center" :valign "center" :spacing 10 :hexpand false :space-evenly true (time_trigger :time get_time))
+    (box :halign "end" :valign "center" :spacing 10 :hexpand true :space-evenly false)
+  ))
+
+(defwindow bar_widget :monitor 0 :stacking "bg" :geometry 
+  (geometry :anchor "top center" :width "100%" :height "5%")
+  :exclusive true
+  (bar)
+)

@@ -1,0 +1,9 @@
+@use "./variables.scss";
+
+.bar {
+  box-shadow: 0 2px 3px 1px rgba(4, 4, 8, 0.5);
+  border-radius: 24px;
+  background-color: variables.$bg;
+  padding: 5px 15px;
+  margin: 6px 20px 6px 20px;
+}

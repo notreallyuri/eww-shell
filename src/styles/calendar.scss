@@ -1,0 +1,68 @@
+@use "./variables.scss";
+
+.calendar-container {
+  margin: 5.5px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  background-color: rgba(24, 24, 37, 0.92);
+  padding: 10px;
+}
+
+.time-trigger {
+  background-color: variables.$item-bg;
+  color: variables.$primary;
+  border-radius: 20px;
+  transition: color 0.3s;
+  transition: background-color 0.3s;
+  &:hover {
+    color: variables.$white;
+    background-color: variables.$primary;
+  }
+}
+
+.time-box {
+  border-radius: 15px;
+  background-color: variables.$item-bg;
+}
+
+.time-inner {
+  padding: 15px;
+}
+
+.time-txt {
+  color: variables.$primary;
+  font-size: 32px;
+}
+
+.date-txt {
+  color: variables.$white;
+  font-size: 14px;
+}
+
+.calendar-box {
+  border-radius: 15px;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: variables.$item-bg;
+}
+
+.cal {
+  padding: 5px;
+  color: rgb(205, 212, 246);
+  &.header {
+    color: rgb(219, 193, 117);
+  }
+  &.button {
+    color: rgb(219, 193, 117);
+    &:hover {
+      color: rgb(230, 100, 100);
+    }
+  }
+  &:indeterminate {
+    color: rgba(205, 212, 246, 0.4);
+  }
+  &.highlight {
+    color: rgb(245, 162, 96);
+  }
+}

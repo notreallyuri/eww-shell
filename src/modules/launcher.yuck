@@ -1,0 +1,103 @@
+(defwidget launcher_trigger [] 
+  (eventbox :cursor "pointer" 
+            :class "launcher-trigger" 
+            :width 112
+            :height 25
+            :onclick "./src/plugins/wd-mgr toggle launcher launchrev &"
+    (label :text "Launcher")))
+
+(defwidget launcher_widget [] 
+  (box :class "app-menu-container" 
+       :orientation "v" 
+       :space-evenly false
+
+    (box :class "launcher-header" :orientation "h" :space-evenly true :spacing 10
+      (button :class {applist ? "tab-btn active" : "tab-btn inactive"}
+              :onclick "eww update applist=true"
+              :cursor "pointer"
+              "All Apps")
+      
+      (button :class {applist ? "tab-btn inactive" : "tab-btn active"} 
+              :onclick "eww update applist=false"
+              :style "margin-left: 10px"
+              :cursor "pointer"
+              "Favorites")
+    )
+
+    (stack :selected {applist ? 0 : 1}
+           :transition "slideleft"
+           (all_apps)
+           (favorite_apps)
+    )
+  )
+)
+
+
+(defwidget all_apps []
+  (scroll :vscroll true :height 400
+    (box :orientation "v"
+         :space-evenly false
+         :spacing 5
+      (for i in {appdata.apps}
+        (launcher_list_item
+             :name {i.name}
+             :icon {i.icon}
+             :exec {i.exec}
+             :terminal {i.terminal})
+      )
+    )
+  )
+)
+
+(defwidget favorite_apps []
+  (scroll :vscroll true :height 400
+    (box :orientation "v"
+         :space-evenly false
+         :spacing 5
+      (for i in {appdata.favorites}
+        (launcher_list_item
+             :name {i.name}
+             :icon {i.icon}
+             :exec {i.exec}
+             :terminal {i.terminal})
+      )
+    )
+  )
+)
+
+(defwidget launcher_list_item [name icon exec terminal] 
+  (eventbox :cursor "pointer" :onclick "hyprctl dispatch exec '${terminal ? "kitty -e " : ""}${exec}'" :class "app-item"
+    (box :orientation "h" :space-evenly false :spacing 10
+      (image :path icon :width 32 :height 32 :image-width 32 :image-height 32)
+      (box :orientation "v" :valign "center"
+        (label :class "app-name"
+               :text name
+               :halign "start"
+        ) 
+      )
+    )
+))
+
+(defwidget launcher_window []
+  (revealer :transition "slideup" 
+            :reveal launchrev 
+            :duration "350ms"
+    (box :class "launcher-window-box"
+      (launcher_widget)
+    )
+  )
+)
+
+(defwindow launcher
+  :monitor 0
+  :stacking "overlay"
+  :namespace "eww-launcher"
+  :focusable true
+  :geometry (geometry :anchor "center center"
+                      :width "600px" 
+                      :height "0px"
+  )
+  (eventbox :onhoverlost "./src/plugins/wd-mgr toggle launcher launchrev &"
+    (launcher_window)
+  )
+)

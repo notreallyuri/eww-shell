@@ -1,0 +1,42 @@
+(defwidget calendar_event []
+    (eventbox :onhoverlost "./src/plugins/wd-mgr toggle calendar calrev &"
+         (calendar_widget :time get_time
+                          :date get_date
+         )
+    )
+)
+
+(defwidget calendar_widget[time date]
+    (box :class "calendar-container"
+         :orientation "v"
+         :spacing 16
+         :space-evenly false
+         (box :class "time-box" 
+              (box :valign "center" :space-evenly false :orientation "v" :halign "center" :class "time-inner"
+                    (label :class "time-txt"  :text "${time}")
+                    (label :class "date-txt"  :text "${date}")
+              )
+         )
+         (box :class "calendar-box"
+              :halign "center"    
+              (calendar :class "cal")
+         )
+    )
+)
+
+(defwindow calendar []
+    :monitor 0
+    :stacking "overlay"
+    :geometry (geometry :anchor "top center"
+                        :y "-15px"
+                        :width "355px"
+                        :height "41%"
+    )
+    (expander :expanded true
+              (revealer :transition "crossfade"
+                        :reveal calrev
+                        :duration "350ms"
+                        (calendar_event)
+              )
+    )
+)

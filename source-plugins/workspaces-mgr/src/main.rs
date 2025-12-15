@@ -68,14 +68,10 @@ async fn print_workspace() {
     let workspaces_res = Workspaces::get_async().await;
 
     if let (Ok(monitors), Ok(workspaces)) = (monitors_res, workspaces_res) {
-        // We will create a Map: "0" -> State, "1" -> State
         let mut output: HashMap<String, MonitorState> = HashMap::new();
 
         for monitor in monitors {
-            // 1. Get the active workspace ID specific to THIS monitor
             let active_id = monitor.active_workspace.id;
-
-            // 2. Calculate the page (1-5, 6-10) for THIS monitor
             let chunk_offset = ((active_id - 1) / 5) * 5;
 
             let mut ui_items = Vec::new();

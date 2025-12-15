@@ -23,7 +23,7 @@
 }
 
 .launcher-header {
-  margin-bottom: 16px;
+  margin-bottom: 10px;
 }
 
 .app-item {
@@ -31,6 +31,12 @@
   &:hover {
     color: variables.$primary;
   }
+}
+
+.launcher-input {
+  background-color: variables.$item-bg;
+  padding: 6px;
+  border-radius: 12px;
 }
 
 .tab-btn {

@@ -13,6 +13,14 @@
 ;; Workspace data
 (deflisten workspaces_json :initial '{}' "./src/plugins/workspaces-mgr")
 
+;; Media player data
+(defpoll player_status :interval "1s" "playerctl status")
+(defpoll track_pos    :interval "1s" "playerctl position")
+(defpoll track_len    :interval "1s" "playerctl metadata mpris:length | awk '{print $1/1000000}'")
+
+(deflisten cava_bars "./src/plugins/cava-visu")
+
 ;; Window States
+(defvar mediarev false)
 (defvar calrev false)
 (defvar launchrev false)

@@ -2,11 +2,12 @@
 (include "./src/modules/calendar.yuck")
 (include "./src/modules/launcher.yuck")
 (include "./src/modules/workspaces.yuck")
+(include "./src/modules/media.yuck")
 
 (defwidget bar [] 
   (box :class "bar" :orientation "h"
     (box :halign "start" :valign "center" :spacing 10 :hexpand true :space-evenly false (launcher_trigger) (workspaces :monitor 0))
-    (box :halign "center" :valign "center" :spacing 10 :hexpand false :space-evenly true (time_trigger :time get_time))
+    (box :halign "center" :valign "center" :spacing 10 :hexpand false :space-evenly false (media_trigger) (time_trigger :time get_time))
     (box :halign "end" :valign "center" :spacing 10 :hexpand true :space-evenly false)
   ))
 

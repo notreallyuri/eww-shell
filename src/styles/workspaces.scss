@@ -12,8 +12,9 @@
   opacity: 1;
   border-radius: 100%;
   min-height: 4px;
+  transition: all 0.3s;
 }
 
 .indicator-spacer {
-  transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: all 0.3s;
 }

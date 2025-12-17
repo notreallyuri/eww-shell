@@ -1,17 +1,15 @@
-@use "./variables.scss";
+@use "./variables.scss" as v;
 
 .workspaces {
   background-color: rgba(0, 0, 0, 0.2);
   padding: 0 4px;
-  border-radius: 25px;
-  min-height: 30px;
+  border-radius: v.$radius-sm;
+  min-height: 25px;
 }
 
 .indicator-dot {
-  background-color: variables.$primary;
-  opacity: 1;
-  border-radius: 100%;
-  min-height: 4px;
+  background-color: v.$color-primary;
+  border-radius: v.$radius-sm;
   transition: all 0.3s;
 }
 

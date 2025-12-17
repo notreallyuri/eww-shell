@@ -3,29 +3,83 @@
 (include "./src/modules/launcher.yuck")
 (include "./src/modules/workspaces.yuck")
 (include "./src/modules/media.yuck")
+(include "./src/modules/active-window.yuck")
 
 (defwidget bar [] 
-  (box :class "bar" :orientation "h"
-    (box :halign "start" :valign "center" :spacing 10 :hexpand true :space-evenly false (launcher_trigger) (workspaces :monitor 0))
-    (box :halign "center" :valign "center" :spacing 10 :hexpand false :space-evenly false (media_trigger) (time_trigger :time get_time))
-    (box :halign "end" :valign "center" :spacing 10 :hexpand true :space-evenly false)
-  ))
+  (box 
+    :class "bar"
+    :orientation "h"
+    (box 
+      :halign "start" 
+      :valign "center" 
+      :spacing 10 
+      :hexpand true 
+      :space-evenly false
+      :height 25
+      (launcher_trigger :halign "start") 
+      (workspaces :monitor 0)
+      (active_window)
+    )
+    (box 
+      :halign "center" 
+      :valign "center" 
+      :hexpand true 
+      :space-evenly false 
+      :spacing 10
+      :height 25
+      (box :halign "center" :space-evenly false (time_trigger))
+    )
+    (box 
+      :halign "end" 
+      :valign "center" 
+      :spacing 10 
+      :hexpand true 
+      :space-evenly false 
+      :height 25
+      (media_trigger)
+    )
+  )
+)
 
 (defwidget bar_second [] 
   (box :class "bar" :orientation "h"
-    (box :halign "start" :valign "center" :spacing 10 :hexpand true :space-evenly false (workspaces :monitor 1))
-    (box :halign "center" :valign "center" :spacing 10 :hexpand false :space-evenly true (time_trigger :time get_time))
-    (box :halign "end" :valign "center" :spacing 10 :hexpand true :space-evenly false)
+    (box 
+      :halign "start" 
+      :valign "center" 
+      :spacing 10 
+      :hexpand true 
+      :space-evenly false 
+      (workspaces :monitor 1)
+    )
+    (box 
+      :halign "center" 
+      :valign "center" 
+      :spacing 10 
+      :hexpand false 
+      :space-evenly true 
+      (time_trigger :time get_time)
+    )
+    (box 
+      :halign "end" 
+      :valign "center" 
+      :spacing 10 
+      :hexpand true 
+      :space-evenly false
+    )
   ))
 
-(defwindow bar_widget :monitor 0 :stacking "bg" :geometry 
-  (geometry :anchor "top center" :width "100%" :height "5%")
+(defwindow bar_widget 
+  :monitor 0 
+  :stacking "bg" 
+  :geometry (geometry :anchor "top center" :width "99.5%" :height "3.425%")
   :exclusive true
   (bar)
 )
 
-(defwindow bar_widget_second :monitor 1 :stacking "bg" :geometry 
-  (geometry :anchor "top center" :width "100%" :height "5%")
+(defwindow bar_widget_second 
+  :monitor 1 
+  :stacking "bg" 
+  :geometry (geometry :anchor "top center" :width "99.5%" :height "3.425%")
   :exclusive true
   (bar_second)
 )

@@ -1,13 +1,13 @@
 (defwidget media_trigger []
-  (eventbox :class "media-trigger-wrapper" :onclick "" :cursor "pointer" :width {player_status == "Playing" ? 90 : 30}
+  (eventbox :class "media-trigger-wrapper" :onclick "" :cursor "pointer" :height 25 :width {player_status == "Playing" ? 90 : 30}
     (box :class "media-trigger" 
          :width {player_status == "Playing" ? 90 : 30} 
          :orientation "h" 
          :space-evenly true
          :style {player_status == "Playing" ? "padding: 0 12px" : "padding: 0"}
 
-      (box :orientation "h" :space-evenly false :spacing 5 :halign "center"
-        (label :text "")
+      (box :orientation "h" :space-evenly false :spacing 2 :halign "center"
+        (label :text {player_status == "Playing" ? " " : ""})
         (label 
            :text cava_bars 
            :style "font-size: 6pt;" 

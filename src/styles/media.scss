@@ -1,12 +1,12 @@
 @use "./variables.scss" as v;
 
 .media-trigger-wrapper {
-  background-color: v.$item-bg;
-  color: v.$primary;
-  border-radius: 25px;
+  background-color: v.$color-item-bg;
+  color: v.$color-primary;
+  border-radius: v.$radius-sm;
 
   &:hover {
-    color: v.$white;
-    background-color: v.$primary;
+    color: v.$color-white;
+    background-color: v.$color-primary;
   }
 }

@@ -1,9 +1,9 @@
-@use "./variables.scss";
+@use "./variables.scss" as v;
 
 .bar {
-  box-shadow: 0 2px 3px 1px rgba(4, 4, 8, 0.5);
-  border-radius: 24px;
-  background-color: variables.$bg;
-  padding: 5px 15px;
-  margin: 6px 20px 6px 20px;
+  box-shadow: 0 2px 3px 1px rgba(0, 0, 0, 0.5);
+  border-radius: v.$radius-base;
+  background-color: v.$color-bg;
+  padding: 5px;
+  margin: 6px 20px;
 }

@@ -20,6 +20,9 @@ struct AppState {
 impl AppState {}
 
 fn main() {
+    let args: Vec<String> = env::args().collect();
+    let search_query = args.get(1).map(|s| s.to_lowercase());
+
     let mut apps = Vec::new();
     let app_dirs = get_application_dirs();
 
@@ -47,11 +50,9 @@ fn main() {
 
     let fav_keywords = [
         "neovim",
-        "nvim",
         "prism launcher",
         "steam",
         "zen browser",
-        "zen",
         "obs studio",
         "cider",
         "discord",
@@ -61,13 +62,34 @@ fn main() {
         .iter()
         .filter(|app| {
             let name_lower = app.name.to_lowercase();
-            // Check if the app name contains any of our keywords
             fav_keywords.iter().any(|&k| name_lower.contains(k))
         })
         .cloned()
         .collect();
 
-    let state = AppState { apps, favorites };
+    let filtered_apps = if let Some(query) = &search_query {
+        apps.iter()
+            .filter(|app| app.name.to_lowercase().contains(query))
+            .cloned()
+            .collect()
+    } else {
+        apps.clone()
+    };
+
+    let filtered_favorites = if let Some(query) = &search_query {
+        favorites
+            .iter()
+            .filter(|app| app.name.to_lowercase().contains(query))
+            .cloned()
+            .collect()
+    } else {
+        favorites.clone()
+    };
+
+    let state = AppState {
+        apps: filtered_apps,
+        favorites: filtered_favorites,
+    };
 
     println!("{}", serde_json::to_string(&state).unwrap());
 }

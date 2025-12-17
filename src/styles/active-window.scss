@@ -1,0 +1,8 @@
+@use "./variables.scss" as v;
+
+.active-window {
+  background-color: v.$color-item-bg;
+  padding: 0 16px;
+  border-radius: v.$radius-sm;
+  color: v.$color-white;
+}

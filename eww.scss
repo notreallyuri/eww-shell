@@ -3,6 +3,7 @@
 @use "./src/styles/launcher.scss";
 @use "./src/styles/workspaces.scss";
 @use "./src/styles/media.scss";
+@use "./src/styles/active-window.scss";
 
 * {
   all: unset;

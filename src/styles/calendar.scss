@@ -1,30 +1,32 @@
-@use "./variables.scss";
+@use "./variables.scss" as v;
 
 .calendar-container {
   box-shadow: 0 2px 3px 2px #06060b;
-  margin: 5.5px;
+  margin: v.$margin-containers;
   margin-bottom: 10px;
-  border-radius: 20px;
+  border-radius: v.$radius-sm;
   background-color: rgba(24, 24, 37, 0.92);
   padding: 10px;
 }
 
 .time-trigger {
-  background-color: variables.$item-bg;
-  color: variables.$primary;
-  border-radius: 20px;
+  background-color: v.$color-item-bg;
+  color: v.$color-primary;
+  border-radius: v.$radius-sm;
   transition: color 0.3s;
   transition: background-color 0.3s;
+  font-size: 9pt;
+
   &:hover {
-    color: variables.$white;
-    background-color: variables.$primary;
+    color: v.$color-white;
+    background-color: v.$color-primary;
   }
 }
 
 .time-box {
   box-shadow: 0 2px 3px 2px rgba(6, 6, 11, 0.9);
-  border-radius: 15px;
-  background-color: variables.$item-bg;
+  border-radius: v.$radius-sm;
+  background-color: v.$color-item-bg;
 }
 
 .time-inner {
@@ -32,22 +34,22 @@
 }
 
 .time-txt {
-  color: variables.$primary;
+  color: v.$color-primary;
   font-size: 32px;
 }
 
 .date-txt {
-  color: variables.$white;
+  color: v.$color-white;
   font-size: 14px;
 }
 
 .calendar-box {
   box-shadow: 0 2px 3px 2px rgba(6, 6, 11, 0.9);
-  border-radius: 15px;
+  border-radius: v.$radius-sm;
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: variables.$item-bg;
+  background-color: v.$color-item-bg;
 }
 
 .cal {

@@ -1,3 +1,3 @@
 (defwidget active_window []
-  (box :class "active-window" (label :style "font-size: 8pt;" :text "Placeholder for Active Window Module"))
+  (box :class "active-window" (label :style "font-size: 8pt;" :text {active_window.title}))
 )

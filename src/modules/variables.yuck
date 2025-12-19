@@ -13,6 +13,9 @@
 ;; Workspace data
 (deflisten workspaces_json :initial '{}' "./src/plugins/workspaces-mgr")
 
+;; Active window data 
+(deflisten active_window :initial '{"title": "", "class": ""}' "./src/plugins/active-mgr")
+
 ;; Media player data
 (defpoll player_status :interval "1s" "playerctl status")
 (defpoll track_pos    :interval "1s" "playerctl position")

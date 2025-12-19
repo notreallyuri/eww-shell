@@ -69,7 +69,7 @@
   ))
 
 (defwindow bar_widget 
-  :monitor 0 
+  :monitor 0
   :stacking "bg" 
   :geometry (geometry :anchor "top center" :width "99.5%" :height "3.425%")
   :exclusive true
